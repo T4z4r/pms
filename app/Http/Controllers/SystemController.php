@@ -387,8 +387,9 @@ class SystemController extends Controller
         return response()->json(['success' => 'Feature updated successfully.']);
     }
 
-    public function destroyFeature(System $system, Feature $feature)
+    public function destroyFeature(System $system,  $featureIid)
     {
+        $feature = Feature::where('id', operator: $featureIid)->where('system_id', $system->id)->first();
         $feature->delete();
         return response()->json(['success' => 'Feature deleted successfully.']);
     }
