@@ -238,7 +238,7 @@ class SystemController extends Controller
             'created_by' => auth()->id(),
         ]);
 
-        return redirect()->route('systems.show', $system)->with('msg', 'Feature added successfully.');
+        return back()->with('msg', 'Feature added successfully.');
     }
 
     public function updateFeature(Request $request, System $system, Feature $feature)
@@ -259,7 +259,7 @@ class SystemController extends Controller
             'submodule_id' => $request->submodule_id,
         ]);
 
-        return redirect()->route('systems.show', $system)->with('msg', 'Feature updated successfully.');
+        return back()->with('msg', 'Feature updated successfully.');
     }
     public function store(Request $request)
     {
