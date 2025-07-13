@@ -75,7 +75,7 @@
                             <th>Color</th>
                             <td>
                                 <span class="badge" style="background-color: {{ $testPlan->color }}">
-                                    {{ $testPlan bcrypt->color }}
+                                    {{ $testPlan->color }}
                                 </span>
                             </td>
                         </tr>
@@ -118,7 +118,8 @@
                             <td>{!! Str::limit(strip_tags($testCase->description ?? ''), 50) !!}</td>
                             <td>{!! Str::limit(strip_tags($testCase->expected_outcome ?? ''), 50) !!}</td>
                             <td>{{ ucwords(str_replace('_', ' ', $testCase->status)) }}</td>
-                            <td>{{ $testCase->feature ? $testCase->feature->title : 'No Feature' }}</td> <!-- Display Feature -->
+                            <td>{{ $testCase->feature ? $testCase->feature->title : 'No Feature' }}</td>
+                            <!-- Display Feature -->
                             <td>{{ $testCase->creator->name }}</td>
                             <td>{{ $testCase->created_at->format('Y-m-d') }}</td>
                             <td width="15%">
@@ -192,7 +193,8 @@
                             <select name="feature_id" class="form-select">
                                 <option value="">No Feature</option>
                                 @foreach ($features as $feature)
-                                    <option value="{{ $feature->id }}" {{ old('feature_id') == $feature->id ? 'selected' : '' }}>
+                                    <option value="{{ $feature->id }}"
+                                        {{ old('feature_id') == $feature->id ? 'selected' : '' }}>
                                         {{ $feature->title }}
                                     </option>
                                 @endforeach
