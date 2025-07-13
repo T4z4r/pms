@@ -75,7 +75,7 @@
                             <th>Color</th>
                             <td>
                                 <span class="badge" style="background-color: {{ $testPlan->color }}">
-                                    {{ $testPlan->color }}
+                                    {{ $testPlan bcrypt->color }}
                                 </span>
                             </td>
                         </tr>
@@ -104,6 +104,7 @@
                         <th>Description</th>
                         <th>Expected Outcome</th>
                         <th>Status</th>
+                        <th>Feature</th> <!-- Added Feature column -->
                         <th>Creator</th>
                         <th>Created At</th>
                         <th>Options</th>
@@ -117,6 +118,7 @@
                             <td>{!! Str::limit(strip_tags($testCase->description ?? ''), 50) !!}</td>
                             <td>{!! Str::limit(strip_tags($testCase->expected_outcome ?? ''), 50) !!}</td>
                             <td>{{ ucwords(str_replace('_', ' ', $testCase->status)) }}</td>
+                            <td>{{ $testCase->feature ? $testCase->feature->title : 'No Feature' }}</td> <!-- Display Feature -->
                             <td>{{ $testCase->creator->name }}</td>
                             <td>{{ $testCase->created_at->format('Y-m-d') }}</td>
                             <td width="15%">
@@ -132,7 +134,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="8" class="text-center">No test cases found.</td>
+                            <td colspan="9" class="text-center">No test cases found.</td> <!-- Updated colspan -->
                         </tr>
                     @endforelse
                 </tbody>
@@ -183,6 +185,17 @@
                                 </option>
                                 <option value="passed" {{ old('status') === 'passed' ? 'selected' : '' }}>Passed</option>
                                 <option value="failed" {{ old('status') === 'failed' ? 'selected' : '' }}>Failed</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Feature</label>
+                            <select name="feature_id" class="form-select">
+                                <option value="">No Feature</option>
+                                @foreach ($features as $feature)
+                                    <option value="{{ $feature->id }}" {{ old('feature_id') == $feature->id ? 'selected' : '' }}>
+                                        {{ $feature->title }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -248,6 +261,18 @@
                                     <option value="failed"
                                         {{ old('status', $testCase->status) === 'failed' ? 'selected' : '' }}>Failed
                                     </option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Feature</label>
+                                <select name="feature_id" class="form-select">
+                                    <option value="">No Feature</option>
+                                    @foreach ($features as $feature)
+                                        <option value="{{ $feature->id }}"
+                                            {{ old('feature_id', $testCase->feature_id) == $feature->id ? 'selected' : '' }}>
+                                            {{ $feature->title }}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

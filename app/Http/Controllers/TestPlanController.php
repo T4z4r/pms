@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TestPlan;
-use App\Models\TestCase;
-use App\Models\Project;
 use App\Models\User;
-use App\Exports\TestCaseExport;
+use App\Models\Feature;
+use App\Models\Project;
+use App\Models\TestCase;
+use App\Models\TestPlan;
 use Illuminate\Http\Request;
+use App\Exports\TestCaseExport;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
-use Barryvdh\DomPDF\Facade as PDF;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 
 class TestPlanController extends Controller
@@ -28,7 +29,8 @@ class TestPlanController extends Controller
     public function show(TestPlan $testPlan)
     {
         $testPlan->load('testCases', 'project', 'creator', 'assignee');
-        return view('test_plans.view', compact('testPlan'));
+        $features = Feature::where('system_id', $testPlan->project->system_id)->get(); // Adjust based on your relationships
+        return view('test_plans.view', compact('testPlan', 'features'));
     }
 
     public function store(Request $request)
@@ -114,6 +116,7 @@ class TestPlanController extends Controller
             'description' => 'nullable|string',
             'expected_outcome' => 'nullable|string',
             'status' => 'required|in:pending,passed,failed',
+            'feature_id' => 'nullable|exists:features,id', // Validate feature_id
         ]);
 
         TestCase::create([
@@ -123,6 +126,7 @@ class TestPlanController extends Controller
             'expected_outcome' => $request->expected_outcome,
             'status' => $request->status,
             'created_by' => Auth::id(),
+            'feature_id' => $request->feature_id, // Save feature_id
         ]);
 
         return redirect()->route('tests.show', $testPlan)->with('msg', 'Test Case created successfully.');
@@ -135,6 +139,7 @@ class TestPlanController extends Controller
             'description' => 'nullable|string',
             'expected_outcome' => 'nullable|string',
             'status' => 'required|in:pending,passed,failed',
+            'feature_id' => 'nullable|exists:features,id', // Validate feature_id
         ]);
 
         $testCase->update([
@@ -142,6 +147,7 @@ class TestPlanController extends Controller
             'description' => $request->description,
             'expected_outcome' => $request->expected_outcome,
             'status' => $request->status,
+            'feature_id' => $request->feature_id, // Update feature_id
         ]);
 
         return response()->json(['success' => 'Test Case updated successfully.']);

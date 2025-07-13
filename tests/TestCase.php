@@ -1,10 +1,29 @@
 <?php
 
-namespace Tests;
+namespace App\Models;
 
-use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Database\Eloquent\Model;
 
-abstract class TestCase extends BaseTestCase
+class TestCase extends Model
 {
-    use CreatesApplication;
+    protected $fillable = [
+        'test_plan_id',
+        'title',
+        'description',
+        'expected_outcome',
+        'status',
+        'created_by',
+        'feature_id',
+    ];
+
+    public function feature()
+    {
+        return $this->belongsTo(Feature::class);
+    }
+
+    // Existing relationships (e.g., testPlan, creator)
+    public function testPlan()
+    {
+        return $this->belongsTo(TestPlan::class);
+    }
 }
