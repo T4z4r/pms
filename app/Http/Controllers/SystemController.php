@@ -389,7 +389,7 @@ class SystemController extends Controller
 
     public function destroyFeature(System $system,  $featureIid)
     {
-        $feature = Feature::where('id', operator: $featureIid)->where('system_id', $system->id)->first();
+        $feature = Feature::where('id', operator: $featureIid)->first();
         $feature->delete();
         return response()->json(['success' => 'Feature deleted successfully.']);
     }
