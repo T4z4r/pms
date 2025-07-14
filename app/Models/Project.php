@@ -61,7 +61,7 @@ class Project extends Model
 
     public function systems()
     {
-        return $this->hasMany(ProjectSystem::class, 'project_id')->withTimestamps();
+        return $this->hasMany(ProjectSystem::class, 'project_id');
     }
 
     public function creator()
