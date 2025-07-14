@@ -56,7 +56,7 @@ class Project extends Model
 
     public function systems()
     {
-        return $this->hasMany(System::class);
+        return $this->hasMany(System::class, 'project_system');
     }
 
     public function creator()
