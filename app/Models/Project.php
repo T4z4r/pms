@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
-    protected $fillable = ['name', 'description', 'project_type_id', 'project_priority_id', 'status','created_by','client_id','updated_by'];
+    protected $fillable = ['name', 'description', 'project_type_id', 'project_priority_id', 'status', 'created_by', 'client_id', 'updated_by'];
 
     public function projectType()
     {
@@ -49,14 +49,14 @@ class Project extends Model
         return $this->hasMany(Task::class);
     }
 
-        public function client()
+    public function client()
     {
         return $this->belongsTo(Client::class);
     }
 
     public function systems()
     {
-        return $this->hasMany(System::class);
+        return $this->belongsTo(System::class);
     }
 
     public function creator()
@@ -69,9 +69,8 @@ class Project extends Model
         return $this->belongsTo(User::class, 'updated_by');
     }
 
-   public function issues()
+    public function issues()
     {
         return $this->hasMany(Issue::class);
     }
-
 }
