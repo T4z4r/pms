@@ -66,7 +66,7 @@ class Project extends Model
 
     public function systems()
     {
-        return $this->belongsToMany(Project::class, 'project_system')->withTimestamps();
+        return $this->belongsToMany(System::class, 'project_system')->withTimestamps();
     }
 
 
