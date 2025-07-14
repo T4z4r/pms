@@ -29,7 +29,7 @@ class TestPlanController extends Controller
     public function show(TestPlan $testPlan)
     {
         $testPlan->load('testCases', 'project', 'creator', 'assignee');
-        dd($testPlan->project->systems->pluck('system_id'));
+        dd($testPlan->project->systems);
         $features = Feature::whereIn('system_id', $testPlan->project->systems->pluck('system_id'))->get();
         return view('test_plans.view', compact('testPlan', 'features'));
     }
