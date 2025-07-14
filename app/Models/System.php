@@ -14,6 +14,11 @@ class System extends Model
 
     public function projects()
     {
+        return $this->belongsToMany(Project::class, 'project_system')->withTimestamps();
+    }
+
+    public function projectSystems()
+    {
         return $this->hasMany(ProjectSystem::class, 'system_id')->withTimestamps();
     }
 
