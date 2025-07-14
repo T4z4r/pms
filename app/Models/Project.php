@@ -54,9 +54,14 @@ class Project extends Model
         return $this->belongsTo(Client::class);
     }
 
+    // public function systems()
+    // {
+    //     return $this->hasMany(System::class, 'project_system');
+    // }
+
     public function systems()
     {
-        return $this->hasMany(System::class, 'project_system');
+        return $this->hasMany(ProjectSystem::class, 'project_id')->withTimestamps();
     }
 
     public function creator()
