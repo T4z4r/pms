@@ -151,7 +151,7 @@ class TestPlanController extends Controller
             'feature_id' => $request->feature_id, // Update feature_id
         ]);
 
-        return response()->json(['success' => 'Test Case updated successfully.']);
+        return redirect()->route('tests.show', $testCase->plan_id)->with('msg', 'Test Case updated successfully.');
     }
 
     public function destroyTestCase(TestCase $testCase)

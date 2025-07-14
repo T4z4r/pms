@@ -14,6 +14,7 @@ class TestCase extends Model
         'status',
         'created_by',
         'feature_id',
+        
     ];
 
     public function feature()
