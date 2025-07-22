@@ -66,7 +66,6 @@ class SystemController extends Controller
 
     public function showFeatures(System $system)
     {
-        $system->load('features.module', 'features.submodule', 'features.creator');
         $features = $system->features()
         ->with(['module', 'submodule', 'creator'])
         ->latest()
