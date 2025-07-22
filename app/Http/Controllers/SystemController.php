@@ -69,7 +69,7 @@ class SystemController extends Controller
         $features = $system->features()
         ->with(['module', 'submodule', 'creator'])
         ->latest()
-        ->limit(20)
+        ->limit(10)
         ->get();
 
         return view('systems.features', compact('system','features'));
