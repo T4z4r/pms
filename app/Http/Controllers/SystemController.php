@@ -299,7 +299,7 @@ class SystemController extends Controller
 
         $system->projects()->sync($request->project_ids);
 
-        return response()->json(['success' => 'System updated successfully.']);
+        return back()->with('success', 'System updated successfully.');
     }
 
     public function destroy(System $system)
