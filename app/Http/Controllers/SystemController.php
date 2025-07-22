@@ -66,8 +66,14 @@ class SystemController extends Controller
 
     public function showFeatures(System $system)
     {
-        $system->load('features.module', 'features.submodule', 'features.creator')->latest()->limit(20);
-        return view('systems.features', compact('system'));
+        $system->load('features.module', 'features.submodule', 'features.creator');
+        $features = $system->features()
+        ->with(['module', 'submodule', 'creator'])
+        ->latest()
+        ->limit(20)
+        ->get();
+
+        return view('systems.features', compact('system','features'));
     }
 
     public function showRequirements(System $system)

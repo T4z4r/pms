@@ -36,7 +36,7 @@
                 </thead>
                 <tbody>
                     @php
-                        $groupedFeatures = $system->features
+                        $groupedFeatures = $features
                             ->sortBy('module.order')
                             ->groupBy(fn($f) => $f->module->name ?? 'Uncategorized');
                         $rowIndex = 1;
