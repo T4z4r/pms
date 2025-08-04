@@ -28,6 +28,11 @@ class Project extends Model
         return $this->belongsToMany(User::class, 'project_role_user')->withPivot('project_role_id');
     }
 
+     public function assignee()
+    {
+        return $this->belongsToMany(User::class, 'project_role_user')->withPivot('project_role_id');
+    }
+
     public function tags()
     {
         return $this->belongsToMany(ProjectTag::class, 'project_project_tag');
