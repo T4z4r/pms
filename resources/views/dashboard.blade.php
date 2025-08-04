@@ -236,7 +236,7 @@
                                                     @forelse($recentProjects as $index => $project)
                                                         <tr>
                                                             <td>{{ $index + 1 }}</td>
-                                                            <td><a href="{{ route('projects.show', $project) }}"
+                                                            <td><a href="{{ url('projects.show', $project) }}"
                                                                     data-bs-toggle="tooltip"
                                                                     title="View Project">{{ $project->name }}</a></td>
                                                             <td>{{ ucwords(str_replace('_', ' ', $project->status)) }}</td>
